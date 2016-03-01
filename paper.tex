@@ -1,0 +1,49 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{palatino}
+
+\usepackage[doi=true,url=true,style=authoryear,dashed=false,firstinits=true,maxnames=2,maxbibnames=99,backend=biber]{biblatex}
+\renewbibmacro{in:}{%
+  \ifentrytype{article}{}{%
+  \printtext{\bibstring{in}\intitlepunct}}}
+
+\bibliography{bibliography}
+
+\begin{document}
+
+\title{Provenance tracking for scientific software toolchains through on-demand release and archiving}
+
+\author{David A. Ham\\Department of Mathematics, Imperial College London}
+
+\maketitle
+
+\section*{Abstract}
+
+\section{Introduction}
+
+There is an emerging consensus that published computational science results
+must be backed by a provenance trail tying results to the exact versions of
+input data and the code which generated them. There is also now an
+impressive range of web services devoted to revision control of software,
+and the archiving in citable form of both software and input data. 
+However, it is also observably the case that very many papers are published
+which do not adhere to these high standards of transparency and
+reproducibility. 
+
+The simplest computational workflows are well-supported by the range of
+currently available tools. If a scientist has a data set, and writes some
+code which acts on that data set then he or she can host the code on an open
+platform such as GitHub or BitBucket, and archive both the code and the data
+on a platform such as Zenodo or Figshare. For completeness, the scientist
+should preferably also list the version of the comilers and/or interpreters
+employed to run the code. Thanks in large part to the high quality of
+software engineering and interface design on behalf of the web services,
+this workflow enables a scientist to achieve best practice for very little
+effort. 
+
+
+
+\section{Provenance vs credit}
+
+\end{document}
