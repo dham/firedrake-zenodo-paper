@@ -23,15 +23,42 @@
 \section{Introduction}
 
 There is an emerging consensus that published computational science results
-must be backed by a provenance trail tying results to the exact versions of
+must be backed by a provenance chain tying results to the exact versions of
 input data and the code which generated them. There is also now an
 impressive range of web services devoted to revision control of software,
-and the archiving in citable form of both software and input data. 
-However, it is also observably the case that very many papers are published
-which do not adhere to these high standards of transparency and
-reproducibility. 
+and the archiving in citable form of both software and input data.  However,
+it is also observably the case that very many papers are published which do
+not adhere to these high standards of transparency and reproducibility. It
+therefore seems apparent that many scientists who rely on
+computations to produce results are sufficiently aware of, or see the need
+to provide suffucient provenance information for their results.
 
-The simplest computational workflows are well-supported by the range of
+Part of the solution to this problem is procedural: as the policies of
+journals and funders evolve, and as reviewer expectations increase, it is to
+be hoped that the publication of provenance chains will become more
+pervasive. However it is also the case that publishing the provenance chain
+for many current scientific computation workflows currently requires effort and
+sometimes technical knowledge beyond that which many scientists are willing
+and/or able to deploy. 
+
+The challenge, therefore, for the authors of the tools in those scientific
+workflows is to provide mechanisms which make the publication of provenance
+chains as easy as possible for users of those tools.
+
+This paper examines why the reality of complex and rapidly evolving
+toolchains makes recording provenance information complicated. It then
+describes the particular approach employed by the Firedrake project as an
+example of the steps which toolchain authors can adopt to
+leverage the existing web services to provide close to automatic provenance
+chain recording.
+
+\section{Related work}
+
+% GitHub Zenodo integration
+
+\section{The provenance challenge for complex tool chains}
+
+The simplest computational workflows are well supported by the range of
 currently available tools. If a scientist has a data set, and writes some
 code which acts on that data set then he or she can host the code on an open
 platform such as GitHub or BitBucket, and archive both the code and the data
@@ -42,8 +69,52 @@ software engineering and interface design on behalf of the web services,
 this workflow enables a scientist to achieve best practice for very little
 effort. 
 
+However, much computational science depends on third party scientific
+packages such as simulation tools, equation solvers and data analysis
+libraries. In the first instance, this appears to present little difficulty:
+the user simply cites the version number of the packages which they
+employed. The reality of computational science, however, is that those
+packages themselves are frequently in active development. The scientist will
+often have employed development versions of the package obtained directly
+from the package revision control system. Often these packages themselves
+will have dependencies and the scientist may well be using development
+versions of those as well. From a scientific correctness point of view, this
+presents no additional problems so long as the package authors verify and
+validate their development versions using a continuous integration
+system \parencite[see, for example][]{Farrell2009}. However from a
+provenance perspective, this is problematic. As noted above, citing git
+hashes or other version control identifiers is not sufficient. At the same
+time, manually uploading the correct versions of multiple external
+dependencies to an archive requires the tedious and error-prone task of
+correctly entering third party data. Using the GitHub Zenodo integration to
+accomplish this, even assuming that the packages are already managed under
+git, requires the user to fork the original repository, and then link their
+Zenodo account to it before creating a release. The level of effort and
+technical knowledge this requires seems entirely likely to deter scientists
+from undertaking this process.
 
+\section{Firedrake GitHub and Zenodo integration}
+
+Firedrake is a system for the automated solution of partial differential
+equations by the finite element method \parencite{Rathgeber2016}. Firedrake
+works by composing together a number of in-house and third party
+implementations of software abstractions for different parts of the
+simulation process. The result is a programmable interface under which users
+write high level mathematical code to create simulation software.
+
+Firedrake has a number of features which make it an exemplar of a complex
+toolchain which poses difficulties for current approaches to provenance
+tracking. First, Firedrake is under constant development, employing
+continuous integraton approaches First, there are 8 different version controlled dependencies. 
 
 \section{Provenance vs credit}
+
+\section{Limitations of this approach}
+
+\subsection{Untracked upstream dependencies}
+
+\subsection{Users' own code and data}
+
+
 
 \end{document}
