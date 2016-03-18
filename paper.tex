@@ -63,7 +63,7 @@ currently available tools. If a scientist has a data set, and writes some
 code which acts on that data set then he or she can host the code on an open
 platform such as GitHub or BitBucket, and archive both the code and the data
 on a platform such as Zenodo or Figshare. For completeness, the scientist
-should preferably also list the version of the comilers and/or interpreters
+should preferably also list the version of the compilers and/or interpreters
 employed to run the code. Thanks in large part to the high quality of
 software engineering and interface design on behalf of the web services,
 this workflow enables a scientist to achieve best practice for very little
@@ -81,22 +81,34 @@ will have dependencies and the scientist may well be using development
 versions of those as well. From a scientific correctness point of view, this
 presents no additional problems so long as the package authors verify and
 validate their development versions using a continuous integration
-system \parencite[see, for example][]{Farrell2009}. However from a
+system \parencite[see, for example][]{Farrell2010}. However from a
 provenance perspective, this is problematic. As noted above, citing git
 hashes or other version control identifiers is not sufficient. At the same
 time, manually uploading the correct versions of multiple external
 dependencies to an archive requires the tedious and error-prone task of
-correctly entering third party data. Using the GitHub Zenodo integration to
+correctly entering third party metadata. Using the GitHub Zenodo integration to
 accomplish this, even assuming that the packages are already managed under
 git, requires the user to fork the original repository, and then link their
 Zenodo account to it before creating a release. The level of effort and
 technical knowledge this requires seems entirely likely to deter scientists
 from undertaking this process.
 
+\section{Requirements for a provenance solution}
+
+On the basis of the above, we can specify some criteria which are necessary
+for effective provenance tracking:
+\begin{enumerate}
+\item The effort required of scientist users must be minimal.
+\item The expertise required of scientist users must be minimal.
+\item The exact versions of software employed must be recorded and archived
+  in a durable manner.
+\item The process should minimise the possibilities for human error.
+\end{enumerate}
+
 \section{Firedrake GitHub and Zenodo integration}
 
 Firedrake is a system for the automated solution of partial differential
-equations by the finite element method \parencite{Rathgeber2016}. Firedrake
+equations by the finite element method \parencite{Rathgeber2015}. Firedrake
 works by composing together a number of in-house and third party
 implementations of software abstractions for different parts of the
 simulation process. The result is a programmable interface under which users
@@ -105,16 +117,50 @@ write high level mathematical code to create simulation software.
 Firedrake has a number of features which make it an exemplar of a complex
 toolchain which poses difficulties for current approaches to provenance
 tracking. First, Firedrake is under constant development, employing
-continuous integraton approaches First, there are 8 different version controlled dependencies. 
+continuous integration to demonstrate test coverage of the master branch and
+all feature branches. There are no fixed releases. Instead, the install system
+facilitates users following the developments of the master branch. Firedrake
+has seven specialist version controlled dependencies, in addition to released
+versions of conventional dependencies such as compilers, MPI, BLAS and
+LAPack. This means that the version of Firedrake employed in a particular
+computational experiment is in fact a bespoke combination of the state of
+eight GitHub repositories. How, then, should a user of Firedrake archive and
+cite the version of this software used in a particular numerical experiment?
+
+At first sight, the answer to this problem is the existing GitHub
+Zenodo integration. However, two limitations of this approach make it
+unsuitable. First, minting a DOI from a GitHub repository using Zenodo
+requires write access to the GitHub repository in order to create the
+release which is to be archived. Users of software packages do not usually
+have this access, and the alternative of the user creating and maintaining
+their own GitHub forks merely to facilitate DOI creation fails the minimal
+effort requirement. Second, the mere effort of manually creating releases of the
+exactly correct versions of eight repositories fails the effort and human
+error tests, and quite possibly the expertise test too.
+
+\subsection{Firedrake-zenodo}
+
+Conversely, for a small one-time investment of effort, the developers of a
+complex system such as Firedrake can deliver a system which fulfills all the
+requirements. 
 
 \section{Provenance vs credit}
+
+The DOIs created through the process described here are intended to be cited
+exactly once: by a paper reporting a set of numerical simulations. Given
+that citation counts are widely used to rate the siginificance of scientific
+outputs, this makes these DOIs entirely unsuitable as a mechanism for giving
+credit to the developers of Firedrake or its dependencies.
 
 \section{Limitations of this approach}
 
 \subsection{Untracked upstream dependencies}
 
+\subsection{Configuration data}
+
 \subsection{Users' own code and data}
 
 
+\printbibliography
 
 \end{document}
